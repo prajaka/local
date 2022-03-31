@@ -1,0 +1,34 @@
+---
+
+  - name: update kernel and install HWE
+    apt:
+      name: "{{ items }}"
+      install_recommends: yes
+    vars:
+      items:
+      - linux-generic-hwe-18.04
+      - xserver-xorg-hwe-18.04
+  
+  - name: Reboot
+    reboot:
+      test_command: "whoami"
+#  
+#  - name: update password
+#    expect: 
+#      command: passwd support
+#      responses: 
+#        (?i)password: "hanyaSUPPORT!!!"
+#    no_log: true
+
+#  - name: add user training
+#    shell: sudo useradd -s /bin/bash -d /home/training/ -m training
+#
+#  - name: update password
+#    expect:
+#      command: passwd training
+#      responses:
+#        (?i)password: "trainingniaga"
+#    no_log: true       
+
+
+  

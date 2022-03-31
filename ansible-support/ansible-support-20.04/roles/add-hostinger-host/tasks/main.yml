@@ -1,0 +1,8 @@
+---
+  
+  - name: Add Metabase and hostinger host
+    lineinfile:
+      path: /etc/hosts
+      line: 193.168.194.248 metabase.niagahoster.co.id 
+      create: yes
+

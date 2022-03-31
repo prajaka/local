@@ -1,0 +1,8 @@
+---
+home_controller: "{{ lookup('env', 'HOME') }}"
+home_host: "{{ ansible_env.HOME  }}"
+ansible_python_interpreter: "/usr/bin/python3"
+#ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+ansible_become_method: sudo
+ansible_become_pass: "{{ sudo_passwd }}"
+ansible_ssh_pass: "{{ ssh_passwd }}"

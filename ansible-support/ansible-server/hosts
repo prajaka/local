@@ -1,0 +1,16 @@
+[ubuntu-server]
+pentest ansible_host=192.168.8.54 ansible_user=root
+grafana ansible_host=192.168.8.55 ansible_user=root ansible_port=65002
+devwireguard ansible_host=192.168.1.153 ansible_user=root
+datawireguard ansible_host=192.168.1.154 ansible_user=root
+adminwireguard ansible_host=192.168.1.152 ansible_user=root
+generalwireguard ansible_host=192.168.1.156 ansible_user=root
+pritunl ansible_host=192.168.9.238 ansible_user=root
+ldap ansible_host=192.168.1.252 ansible_user=root
+unifi ansible_host=192.168.1.7 ansible_user=root
+kubernetes ansible_host=192.168.8.58 ansible_user=kubernetes
+
+
+[centos-server]
+#wayan ansible_host=192.168.1.248 ansible_user=root ansible_port=65001
+#issabel ansible_host=192.168.1.24 ansible_user=root

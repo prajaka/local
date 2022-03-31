@@ -1,0 +1,6 @@
+---
+- name: poweroff All Machines
+  command: /sbin/shutdown -h now
+  when: ansible_facts['os_family'] == "Debian"
+  ignore_errors: 'yes'
+

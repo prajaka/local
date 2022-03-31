@@ -1,0 +1,6 @@
+---
+- name: update Ubuntu repo dan cache
+  apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+- name: upgrade Ubuntu Server
+  apt: upgrade=dist force_apt_get=yes

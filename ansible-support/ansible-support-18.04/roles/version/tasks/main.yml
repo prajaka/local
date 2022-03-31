@@ -1,0 +1,37 @@
+---
+  #tasks file for ansible-pritunl
+  
+- name: Check Ubuntu Version
+  shell: cat /etc/os-release
+  register: response
+
+- name: Add an apt key by id from a keyserver
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 7568D9BB55FF9E5287D586017AE645C0CF8E292A
+  become: yes
+- name: Update repositories cache
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Install pritunl & Wireguard
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    allow_unauthenticated: yes
+  with_items:
+    - pritunl-client-electron
+    - wireguard
+    - resolvconf
+  become: yes
+
+- name: Download Nordvpn Teams
+  shell: wget https://downloads.nordteams.com/linux/staging/nordvpnteams_1.0.0-stg2_amd64.deb -P /tmp
+
+- name: Install Nordvpn Team
+  shell: sudo apt install /tmp/./nordvpnteams_1.0.0-stg2_amd64.deb  -y
+
+- name: Usermod Nordvpn Users
+  shell: usermod -aG nordvpnteams support
+  

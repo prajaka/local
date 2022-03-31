@@ -1,0 +1,2 @@
+[ubuntu-server]
+pentest ansible_host=192.168.8.54 ansible_user=root

@@ -1,0 +1,6 @@
+---
+
+  - name: Autoremove Packages
+    apt:
+      autoremove : yes
+      purge : yes

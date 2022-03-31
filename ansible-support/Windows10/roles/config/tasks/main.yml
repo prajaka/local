@@ -1,0 +1,20 @@
+---
+- name: ROUTE Print
+  win_command: cmd.exe /c route print
+  register: routeprint
+- debug: msg="{{ routeprint.stdout_lines }}"
+
+- name: Run a ipconfig
+  win_shell: ipconfig
+  args:
+    executable: cmd.exe
+  register: ipconfig
+- debug: msg="{{ ipconfig.stdout_lines }}"
+
+- name: whoami out
+  win_command: whoami
+  register: whoami
+- debug: msg="{{ whoami.stdout_lines }}"
+
+
+

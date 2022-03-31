@@ -1,0 +1,9 @@
+---
+- name: Install Auto Upgrade Ubuntu
+  apt:
+    name: "{{ items }}"
+    state: latest
+  vars:
+    items:
+      - unattended-upgrades
+

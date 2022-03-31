@@ -1,0 +1,14 @@
+---
+- name: Create Temp Folder
+  win_command: cmd.exe /c mkdir C:\temp
+
+- name: Download the Eset Installer
+  win_get_url:
+    url: http://192.168.8.54/office/ESMC_Installer_x64_en_US(2).exe
+    dest: C:\temp\ESMC_Installer_x64_en_US(2).exe
+
+- name: Ensure Eset is installed via win_package
+  win_package:
+    path: C:\temp\ESMC_Installer_x64_en_US(2).exe
+    product_id: Eset-AV
+    state: present

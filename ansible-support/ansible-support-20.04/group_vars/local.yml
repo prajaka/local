@@ -1,0 +1,4 @@
+---
+home_controller: "{{ lookup('env', 'HOME') }}"
+home_host: "{{ ansible_env.HOME  }}"
+ansible_python_interpreter: "/usr/bin/python3"

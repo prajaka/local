@@ -1,0 +1,28 @@
+---
+# - name: Install Chocolately
+#   win_chocolatey:
+#     name: '{{ item }}'
+#     state: present
+#   loop:
+#   - chocolately
+#   - chocolately-core.extension
+
+
+- name: Install Standard Application
+  win_chocolatey:
+    name: '{{ item }}'
+    state: present
+  loop:
+  - slack
+  - putty
+  - lightshot
+  - teamviewer
+  - wireguard
+  - pritunl-client
+  - peazip
+  - googlechrome
+  - foxitreader
+  - dropbox
+  - brave
+
+

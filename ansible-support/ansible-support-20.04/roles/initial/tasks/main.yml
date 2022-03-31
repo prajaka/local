@@ -1,0 +1,61 @@
+---
+  - name: Update Repo id to US
+    template:
+      src: "{{ lookup('env', 'HOME') }}/sources.list"
+      dest: /etc/apt/sources.list
+      mode: '0644'
+
+  - name: Update configuration repository
+    shell: apt update
+
+  - name: install nfs-common
+    apt: 
+      name: nfs-common
+      state: present
+      update-cache: yes
+      
+  - name: install sssd
+    apt:
+      name: sssd
+      state: present
+      update-cache: yes
+
+  - name: Create a directory if it does not exist
+    file:
+      path: "/home/{{ ansible_env.SUDO_USER }}/.ssh"
+      state: directory
+      mode: '0755'
+
+  - name: Create sssd directory
+    file:
+      path: /etc/sssd
+      state: directory
+
+  - name: Create authorized keys file if not exist, to keep the pub key
+    file:
+      path: "/home/{{ ansible_env.SUDO_USER }}/.ssh/authorized_keys"
+      owner: "{{ ansible_env.SUDO_USER }}"
+      group: "{{ ansible_env.SUDO_USER }}"
+      mode: '0600'
+      state: touch 
+
+  - name: adding Sandy SSH Key
+    lineinfile:
+      path: "/home/{{ ansible_env.SUDO_USER}}/.ssh/authorized_keys"
+      line: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC44Fe3BbYIuwu60XhNvg4lsVWSE7TxKlehRB7fMIxIsVyWMNvnzvntEWk67ATdrp56YjuVoqQZH19lzaxaO5OwvWz8fxNjQSd59wYzjItPTXEFjjnJvRBu4Xrzo//M5teCf047E36iqcj8fH8nII40lxe3oUvUESfL0MUuPmQsH5J6e6uRORm/wWIDjM5J+o5d7+Oy5dhMzRlwuonAI07SVMewV1FHIneR44QAQcQGChBMOX4efPdGBQvVdd7YxRzrU0DlkdDMYgFScNsN5Iko1d7hdVe54z9IJDMd1aQpINzQYpLxQccYin+P9SP6OOkuJOwi4afKmSIIsrOPUILrKIefqrhHRPtp5dRASSGPgBTkX2r5Zpj+m89BK8A1SzQIo1nBU3FY3i7h+hkaOLMmBG0MOav97gUuqeJGUJP3Dif6U703bOWHCLMcxaAR6y8UxY11aw4gbP+zXDW5n4ODz7n536MXHsL6E2UwHWvtSA39QGdUYz8JtNUaPDlI6XmkQmmf/VlBqkmVnEk+VciNLNhrVbPQUZD5XY6pQgT0KlVJ8t8AWTutUijv9oyqkzhysSMvJ4irwIdVB6ynWQGyvQP9tP29Uqllp46KJRs98Mp0v29toxJ/uogIFdDuTYC/gLhB/ON3iLaJLiE/tKqa3Xs+VioE3Bf5B4ekDcXyaw== sandy@niagahoster.co.id
+
+  - name: adding Automation SSH Key
+    lineinfile:
+      path: "/home/{{ ansible_env.SUDO_USER}}/.ssh/authorized_keys"
+      line: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCgiO0irXpQXWaIsdhX1vZlyDVs0C0cKsDPIiu633opF4LD2E6WDvIe4nQEZBp+IQwE8GOqhRZ46m0CWMLPo5CEVepNItlwWcvRWChn0KHODLfCDyOafyl0XHuQOn2UaTCdGiILyFRUpi6jIU/VEh+aseWaBkJLUVcj/Ul/4BRTlcQtHK9X6R7fon60cUOM4z2ZdtbHcXivEVj6Cdy6RS3GUGjLoajLGAshCepE6jaTFaeTB46DWatBKLsgWkvDIBStLD51tqUxuAcoo0PCn9dZPx6hDyVh1Oha5L4PIg1MzkiR/lTaqVVNN9HZRp7GpHAp5H8v0lhQXyfKZq1LtTtU+JRihazvXaNNZrq7Hj/tPXSe3MhP72tNZAadDvVaMe4crJgHvBr0/HPRsRcbUs/KTacN6kbXIHY7yFMPLowgYkeXckdCXzPc87yDOxdyxuFdwpJtS8NvgcSasmrIEPUBf2MQPGLLZT2z+A7S+V0XWc0/Bji/Egigmlkwc/bIkytiCrgYfJ404dCEoar2XGMDz1GCrDo0kd0EleYOH6QsS5u9mQhtCM5bYikbLi7Gt9Wc15niX5WLRHTkatyZAIWzFwqR+kmbuIIyqK3O8KtNsWYnaDTdJ4eZSEilqkPLDEQfdGnf6BHuz+oYppWF7XmKkEcx2uOLaOdMslrM2yYkyQ== automation-script@bysandy.com
+
+  - name: adding Prajaka SSH Key
+    lineinfile:
+      path: "/home/{{ ansible_env.SUDO_USER}}/.ssh/authorized_keys"
+      line: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDCoqFZB8PWvlHxBb4wBvoUx1fVqP1DbnRo/ul8b945E7rUyIw+orgiYg766jGqKTF10PG1IJvNg2UtU1IDHY/ItbC190oHCU3ZeI8xswJzemBhjx3QGjsNy5ac4XLjk/MSlL9I1GE5mQyrDW6D/b+wj2t7303ULc6sBrcLKdm0qamNvnoFY5CbHK24MUQORRaNkzEQuSi1NpQfxYK2RXlirqEcZ5BIPH7q/3ojJwOQXRuWcQI6RYvh5thEhjm5OZHfMNUFVHlnuqfolc8maEmz0TglkpCTGpPF7fNo6hfo9R+CARf4fmq/RlzArOtHT4G9yaUdLmNER4RbuF9bzCrSLaA0YSUDFZYfxVza6RPcWu7OL3M2KXJc2Lls6QQGul31ShX0QjVuq6L5oKFipw+Px2WSo/op03GNuJe95T18bbwQVBCcgbREztXbF77CXOD5S6iFrC2JQOvdzygMemjEJmJCkLg0fm3r5hDQPTGaolUXbqJioZLLv1Ga/MvIRnZMdTztwWaZVaoWdYlA43pVD2crpZHqvU5c2OaK3S/ir2XCj4+C5VNO6xVo1XuwYzxqcEHgiYWvL6lwbQuPlKoIK4ASVOP7OJ2xuPslQ5E1wydW+a4poem6JTHYiIxMb7qfIgMhFcBl25zAUbWNqSm3NUNYvMyweTjNC0ovojaHgw== prajaka.lizadi@hostinger.com
+
+  - name: adding New Sandy SSH Key
+    lineinfile:
+      path: "/home/{{ ansible_env.SUDO_USER}}/.ssh/authorized_keys"
+      line: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDLJHLeWSIix/hPNH2NlGPvWe5f56tcSADafRn2bwTO2+bA/fkew7PZxIFUb+50DOyzCWW7Ub8/J5U5VN3uRVSQDQ+ieF6XGsTKYTxOjDeuaciSJ0xu4KJeX4xll2t4DIzNTGD07+hssSmw+ttKET8W5CdxAIDKxnd85kVgSpdYkSUFMxNJEhqqBMgV+d1r1aFyEQYVch5ZmXT1fYnolRp0mLiifUtfT0GI1X17kwiHXZp/jVvCqJNj5UxkOOPn73b9h6oFAvENY5x1DSgDxLZ+dopUodQrQk8mVPeXHF1McNYDJZ0gH/0xcVKCe+yHZrk/famLRK0z9KwZoRytX8E6aEi+vqwLXc4jCVBT2ib1SDFT/fZZzwwRtAM4w2mxDZPkq/TMFIvIOZNpX3BFHtLcQkVVc4AHjBzwxb5V0BaRqNVODZ3TNLUqWghWiaDMykd9LhVjBlVrsNEl3FYPgnI7lUWxHamSnveN0ff4sBc0M5gq42pmV/LxLq/DUsxgtdrcPw4V5Wv8W2o59jz6OXVN7eIT+88RLvS2MzlkzFAPVMYzWDRZIxDKRoEP3eKCJwBNuMPmJ4hrDhQzpO6maiV/Jj0zKnuICUFa7A/pfhz+wLGdEE6JxYOcvMMoSV5vVGVm7Rap5fxReJj0ZHBkM7jN1hBVK0mYSKnPIXifIsyo7w== rahmad.sandy@hostinger.com
+

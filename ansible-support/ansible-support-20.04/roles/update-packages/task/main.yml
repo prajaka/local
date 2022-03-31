@@ -1,0 +1,10 @@
+---
+  - name: update the source-list (apt-get update)
+    apt:
+      autoclean: yes
+      update-cache: yes
+
+  - name: Update all packages to the latest version
+    apt:
+      upgrade: dist
+      force: yes

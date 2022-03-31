@@ -1,0 +1,19 @@
+---
+  - hosts: laptop
+    become: yes
+    #become_user: root
+    #become_method: su
+    roles:
+        - { role: initial }
+        - { role: manage-software }
+        - { role: add-hostinger-host }
+        - { role: vpn }
+        - { role: vpnNetworkManager }
+        - { role: auto-update }
+        - { role: additional}
+        - { role: configuration}
+        - { role: unattended }
+        - { role: autoremove }
+
+
+

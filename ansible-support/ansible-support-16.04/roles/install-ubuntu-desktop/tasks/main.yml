@@ -1,0 +1,47 @@
+---
+#  - name: mounting 
+#    mount:
+#      path: /mnt
+#      src: 192.168.9.254:/minimal
+#      fstype: nfs4
+#      opts: ro
+#      state: mounted
+#
+#  - name: make directory
+#    file:
+#      path: "{{ home_host }}/minimal"
+#      state: directory
+# 
+#  - name: copy files
+#    copy:
+#      src: /mnt
+#      dest: "{{ home_host }}/minimal"
+#      remote_src: yes
+#
+#  - name: extract ubuntu-desktop files
+#    unarchive:
+#      src: "{{ home_host }}/minimal/mnt/ubuntu-desktop-19.04.tar.gz"
+#      dest: "{{ home_host }}/minimal/mnt"
+#      remote_src: yes
+
+
+#  - name: install ubuntu-desktop
+#    #shell: bash install_ubuntu.sh
+#    shell: dpkg -i *
+#    args:
+#      chdir: "{{ home_host }}/minimal/mnt/archives"
+#      #executable: /bin/bash
+  
+  - name: remove files
+    file:
+      path: "{{ home_host }}/minimal"
+      state: absent
+
+    #shell: rm -rf mnt/
+    #args:
+    #  chdir: "{{ home_host }}/minimal"
+      
+  - name: unmounting 
+    mount:
+      path: /mnt
+      state: unmounted

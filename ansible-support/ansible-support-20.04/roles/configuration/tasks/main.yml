@@ -1,0 +1,16 @@
+---
+- name: Create Grub loader Configuration
+  template:
+    src: "{{ lookup('env', 'HOME') }}/grub"
+    dest: /etc/default/grub
+    mode: '0644'
+- name: Update Grub
+  shell: sudo update-grub
+
+- name: transfer autodisable ipv6 script
+  template:
+    src: "{{ lookup('env', 'HOME') }}/rc.local"
+    dest: /etc/rc.local
+    mode: '0755'
+- name: rc.local update
+  shell: sudo chmod 0755 /etc/rc.local && sudo systemctl enable rc-local && sudo systemctl restart rc-local

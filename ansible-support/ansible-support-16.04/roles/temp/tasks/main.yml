@@ -1,0 +1,113 @@
+---
+# - name: revoke sudo access of user 'training'
+#   shell: deluser training sudo
+#
+# - name: install gtk
+#   apt:
+#      name: libcanberra-gtk3-module
+#
+# - name: uninstall slack snap
+#   snap:
+#      name: slack
+#      state: absent
+# 
+# - name: uninstall spotify snap
+#   snap:
+#      name: spotify
+#      state: absent
+#      
+# - name: uninstall sublime-text snap
+#   snap: 
+#      name: sublime-text
+#      state: absent
+#
+# - name: uninstall chrome
+#   apt:
+#     name: google-chrome-stable
+#     state: absent
+#
+# - apt_repository:
+#     repo: ppa:harish2704/ppa1
+#     state: present
+# 
+# - name: install flameshot
+#   apt:
+#     name: flameshot
+#
+# - name: Add apt key
+#   shell: wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
+#
+# - name: Add the repository to source list
+#   shell: echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+#
+# - name: Install sublime-text
+#   apt: 
+#     name: sublime-text
+#     update-cache: yes
+#   
+# - name: Install slack
+#   apt:
+#     deb: https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
+# 
+# - name: Install curl
+#   apt:
+#     name: curl
+#
+# - name: Add apt key
+#   shell:  curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
+#
+# - name: Add the repository to source list
+#   shell: echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+#
+# - name: Install spotify-client
+#   apt: 
+#     name: spotify-client
+#     update-cache: yes
+# 
+## - name: download chrome
+##   shell: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+##   args:
+##     chdir: /home/support
+##
+## - name: install chrome
+##   shell: dpkg -i google-chrome-stable_current_amd64.deb
+##   args:
+##     chdir: /home/support
+# 
+# - name: add google chrome ppa
+#   shell: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+#   args:
+#     chdir: /home/support
+#
+# - name: update source list
+#   shell: sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+#
+# - name: install chrome
+#   apt:
+#     name: google-chrome-stable
+#     update-cache: yes
+
+  - name: update repo for flameshot
+    apt_repository:
+      repo: deb http://ppa.launchpad.net/harish2704/ppa1/ubuntu xenial main 
+      state: present
+
+  - name: Create a directory if it does not exist
+    file:
+      path: "/home/{{ ansible_env.SUDO_USER }}/.ssh"
+      state: directory
+      mode: '0755'
+
+  - name: Create authorized keys file if not exist, to keep the pub key
+    file:
+      path: "/home/{{ ansible_env.SUDO_USER }}/.ssh/authorized_keys"
+      owner: "{{ ansible_env.SUDO_USER }}"
+      group: "{{ ansible_env.SUDO_USER }}"
+      mode: '0600'
+      state: touch
+
+  - name: adding new key
+    lineinfile:
+      path: "/home/{{ ansible_env.SUDO_USER}}/.ssh/authorized_keys"
+      line: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDWsZGRYKHWQN63c95y8Vmt6gG7S1hXxb/djpDqlMumNn8fKb0uNAtXq2H1sMRi/IaOSd8Q16nkX14Vba7m7lPdyWRiyMxOWR3AP+MlC+qglu5nTiVo9DH7F6MurZH7FlwcUkTrojUBsNEZRQPNixaCEKaq3zmpzgIuhR+aY4H1udAZ5JGchcPmiY3aHBJKuFFBcgvxyv36IliVoJU80ih4+UERvUTF1VuzsAyg/GDv94w+Y3v68R/0KKrWb006gxqO83xaL+JTmAjuMX3H0s0kUJZCsNN/T5MBzxup7G1S+8AKNR2pS8qEAHU8Lgd/LzftgiWpCDgRbTRLWcZtafsxOVKXvgE920CdV4AlF2m1oYsq4NwMg93VvtNWrp7TIzV6w/S/qSAT/xIY9hgxLQ5CldwFvIBdz8Zsy6cE0qUN6XbdXfacY13HEEircRjhH49w+x3P22i7dR5hWFLGH6OsqPOGafbk+V3/1ISq5cS3PCs5XBxYJ1KDrUmJ+YtH/aE= ansible-key    
+

@@ -1,0 +1,9 @@
+---
+  - hosts: support
+    gather_facts: False
+    tasks:
+      - name: Check OS Version
+        shell: cat /etc/os-release
+        register: response
+
+      - debug: msg="{{ response.stdout }}"

@@ -1,0 +1,23 @@
+New-NetFirewallRule -DisplayName 'HTTP-Inbound' -Profile @('Domain', 'Public') -Direction Inbound -Action Allow -Protocol TCP -LocalPort @('5585', '5586')
+
+
+Get-NetFirewallrule -DisplayName 'HTTP-Inbound' | Get-NetFirewallAddressFilter | Set-NetFirewallAddressFilter -RemoteAddress 192.168.1.0/24
+
+
+$ips = @("192.168.12.104", "192.168.12.100-192.168.12.200")
+New-NetFirewallRule -DisplayName "Allow inbound ICMPv4" -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -RemoteAddress $ips -Action Allow
+New-NetFirewallRule -DisplayName "Allow inbound ICMPv6" -Direction Inbound -Protocol ICMPv6 -IcmpType 8 -RemoteAddress $ips -Action Allow
+
+
+open cmd run as administrator
+run/paste script below one by one
+
+
+$url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
+$file = "$env:temp\ConfigureRemotingForAnsible.ps1"
+(New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
+powershell.exe -ExecutionPolicy ByPass -File $file
+Get-ChildItem WSMan:\localhost\Service\Auth
+
+
+(New-Object -TypeName System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1", "$env:temp\ConfigureRemotingForAnsible.ps1")

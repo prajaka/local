@@ -1,0 +1,123 @@
+---
+
+ - name: install chromium
+   apt:
+      name: chromium-browser
+      state: present
+
+ - name: install firefox
+   apt:
+      name: firefox
+      state: latest
+
+ - name: install filezilla
+   apt:
+      name: filezilla
+      state: present
+
+ - name: install traceroute
+   apt:
+      name: traceroute
+      state: present
+ 
+ - name: Install slack
+   snap:
+      name: slack
+      classic: yes
+ 
+ - name: Install spotify
+   snap:
+      name: spotify
+
+ - name: Install sublime-text
+   snap: 
+      name: sublime-text
+      classic: yes
+     
+ - name: Install flameshot
+   apt:
+      name: flameshot
+      state: present
+
+ - name: Install shutter
+   apt:
+      name: shutter
+      state: present
+
+ - name: Install nmap
+   apt: 
+      name: nmap
+      state: present
+
+ - name: Check if TeamViewer is installed
+   command: dpkg-query -W teamviewer
+   register: teamviewer_check_deb
+   failed_when: teamviewer_check_deb.rc > 1
+   changed_when: teamviewer_check_deb.rc == 1
+
+ - name: Install TeamViewer dependencies
+   apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+   with_items:
+     - libjpeg62
+     - libxinerama1
+     - libxrandr2
+     - libxtst6
+
+ - name: Download TeamViewer
+   get_url: url="http://download.teamviewer.com/download/teamviewer_i386.deb" dest="/tmp/download-teamviewer-latest.deb"
+   when: teamviewer_check_deb.rc == 1
+
+ - name: Install TeamViewer
+   apt: deb="/tmp/download-teamviewer-latest.deb"
+   when: teamviewer_check_deb.rc == 1
+
+ - name: Clean TeamViewer deb file
+   file: path=/tmp/download-teamviewer-latest.deb state=absent
+
+ - name: Download zoiper
+   get_url:
+      url: http://192.168.9.20/ubuntu/zoiper3.tar.gz
+      dest: "{{ home_host }}"
+
+# - name: Install zoiper
+#   shell: dpkg -i zoiper5_5.2.28_x86_64.deb
+#   args:
+#      chdir: /home/support/
+  
+ - name: Extract zoiper files
+   unarchive:
+     src: "{{ home_host }}/zoiper3.tar.gz"
+     dest: "{{ home_host }}"
+     remote_src: yes
+
+#Install dbeaver
+ - name: Install openjdk-8
+   apt:
+     name: openjdk-8-jdk
+     
+ - name: Add apt key
+   shell: wget -O - https://dbeaver.io/debs/dbeaver.gpg.key | apt-key add -
+
+ - name: Add the repository to source list
+   shell: echo "deb https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list
+
+ - name: Install dbeaver
+   apt: 
+     name: dbeaver-ce
+     update-cache: yes
+
+ - name: Install sssd
+   apt:
+     name: sssd
+     state: present
+     
+ - name: Install lightdm
+   apt:
+     name: lightdm
+     state: present
+
+ - name: Remove ubuntu-web-launcher -> to remove amazon launcher
+   apt:
+     name: ubuntu-web-launchers
+     purge: yes
+     state: absent

@@ -1,0 +1,33 @@
+---
+ - name: Apt update
+   apt:
+     update_cache: yes
+
+ - name: Write the sssd config file
+   template:
+     src: "{{ lookup('env', 'HOME') }}/sssd.conf"
+     dest: /etc/sssd/sssd.conf
+     mode: '0600'
+
+ - name: Ensure sssd is running
+   service:
+     name: sssd
+     state: started
+     
+ - lineinfile:
+     path: "/etc/fstab"
+     line: 192.168.1.254:/data-ssd     /data     nfs     defaults     0     0 
+  
+ - name: Make data directory to mount the nfs dir
+   file:
+     path: /data
+     state: directory
+     
+ - name: Mounting
+   shell: mount -a
+   
+ - name: Write 50-no-guest config file
+   template:
+     src: "{{ lookup('env', 'HOME') }}/50-no-guest.conf"
+     dest: /etc/lightdm/lightdm.conf.d/50-no-guest.conf
+

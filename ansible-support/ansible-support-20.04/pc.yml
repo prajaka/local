@@ -1,0 +1,13 @@
+---
+  - hosts: pc
+    become: yes
+    #become_user: root
+    #become_method: su
+    roles:
+       - { role: initial }
+       - { role: manage-software }
+       - { role: setup-ldap }
+       - { role: vpn }
+       - { role: add-hostinger-host }
+       - { role: autoremove }
+

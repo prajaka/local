@@ -1,0 +1,7 @@
+---
+  - hosts: ubuntu-server
+    become: yes
+    roles:
+       - { role: add-key }
+       - { role: auto-update }
+      #  - { role: upgradeUbuntu }

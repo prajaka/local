@@ -1,0 +1,9 @@
+---
+  - hosts: windker
+    roles:
+        # - { role: windows }
+        # - { role: antivirus }
+        - { role: config }
+
+
+

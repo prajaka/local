@@ -1,0 +1,61 @@
+[support]
+host1 ansible_host=192.168.8.216 ansible_user=support16
+host2 ansible_host=192.168.8.243 ansible_user=support39
+host3 ansible_host=192.168.8.230 ansible_user=support30
+host4 ansible_host=192.168.8.204 ansible_user=support
+# (hanyaNIAGA) host5 ansible_host=192.168.8.205 ansible_user=support
+host6 ansible_host=192.168.8.206 ansible_user=support6
+host7 ansible_host=192.168.8.217 ansible_user=support17
+host8 ansible_host=192.168.8.208 ansible_user=support8
+host9 ansible_host=192.168.8.228 ansible_user=support28
+host10 ansible_host=192.168.8.229 ansible_user=support29
+# (niagahoster)host11 ansible_host=192.168.8.211 ansible_user=support11
+host12 ansible_host=192.168.8.212 ansible_user=support12
+host13 ansible_host=192.168.8.220 ansible_user=support
+host14 ansible_host=192.168.8.219 ansible_user=support19
+host15 ansible_host=192.168.8.213 ansible_user=support13
+host16 ansible_host=192.168.8.214 ansible_user=user
+host17 ansible_host=192.168.8.221 ansible_user=support21
+host18 ansible_host=192.168.8.218 ansible_user=support18
+host19 ansible_host=192.168.8.224 ansible_user=support19
+host20 ansible_host=192.168.8.222 ansible_user=support22
+host21 ansible_host=192.168.8.223 ansible_user=support
+host22 ansible_host=192.168.8.225 ansible_user=support22
+host23 ansible_host=192.168.8.226 ansible_user=support26
+host24 ansible_host=192.168.8.227 ansible_user=support27
+host25 ansible_host=192.168.8.232 ansible_user=support25
+host26 ansible_host=192.168.8.233 ansible_user=support33
+host27 ansible_host=192.168.8.231 ansible_user=support
+host28 ansible_host=192.168.8.202 ansible_user=support2
+host29 ansible_host=192.168.8.201 ansible_user=support-1
+host30 ansible_host=192.168.8.203 ansible_user=support04
+host31 ansible_host=192.168.8.235 ansible_user=support35
+host32 ansible_host=192.168.8.234 ansible_user=support34
+host33 ansible_host=192.168.8.244 ansible_user=support36
+host34 ansible_host=192.168.8.237 ansible_user=support37
+host35 ansible_host=192.168.8.236 ansible_user=support
+host36 ansible_host=192.168.8.245 ansible_user=support
+host37 ansible_host=192.168.9.177 ansible_user=support
+host38 ansible_host=192.168.9.226 ansible_user=support
+host39 ansible_host=192.168.9.170 ansible_user=support
+host40 ansible_host=192.168.9.172 ansible_user=support
+host41 ansible_host=192.168.9.180 ansible_user=support
+host42 ansible_host=192.168.9.251 ansible_user=support
+host43 ansible_host=192.168.9.178 ansible_user=support
+host44 ansible_host=192.168.9.242 ansible_user=support
+host45 ansible_host=192.168.8.209 ansible_user=support9
+host46 ansible_host=192.168.8.210 ansible_user=support10
+host47 ansible_host=192.168.10.244 ansible_user=support
+host48 ansible_host=192.168.10.246 ansible_user=support
+host49 ansible_host=192.168.10.241 ansible_user=support
+host50 ansible_host=192.168.10.243 ansible_user=support
+host51 ansible_host=192.168.10.245 ansible_user=support
+host52 ansible_host=192.168.10.240 ansible_user=support
+host53 ansible_host=192.168.10.239 ansible_user=support
+host54 ansible_host=192.168.10.238 ansible_user=support
+host55 ansible_host=192.168.10.237 ansible_user=support
+#host56 ansible_host=192.168.10.2 ansible_user=support
+
+
+[belum]
+host57 ansible_host=192.168.10.23 ansible_user=support

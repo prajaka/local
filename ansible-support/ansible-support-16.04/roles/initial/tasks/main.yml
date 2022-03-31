@@ -1,0 +1,35 @@
+---
+  - name: install nfs-common
+    apt: 
+      name: nfs-common
+      state: present
+      update-cache: yes
+  - name: install sssd
+    apt:
+      name: sssd
+      state: present
+      update-cache: yes
+
+  - name: Create a directory if it does not exist
+    file:
+      path: "/home/{{ ansible_env.SUDO_USER }}/.ssh"
+      state: directory
+      mode: '0755'
+
+  - name: Create sssd directory
+    file:
+      path: /etc/sssd
+      state: directory
+
+  - name: Create authorized keys file if not exist, to keep the pub key
+    file:
+      path: "/home/{{ ansible_env.SUDO_USER }}/.ssh/authorized_keys"
+      owner: "{{ ansible_env.SUDO_USER }}"
+      group: "{{ ansible_env.SUDO_USER }}"
+      mode: '0600'
+      state: touch 
+
+  - name: adding new key
+    lineinfile:
+      path: "/home/{{ ansible_env.SUDO_USER}}/.ssh/authorized_keys"
+      line: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC44Fe3BbYIuwu60XhNvg4lsVWSE7TxKlehRB7fMIxIsVyWMNvnzvntEWk67ATdrp56YjuVoqQZH19lzaxaO5OwvWz8fxNjQSd59wYzjItPTXEFjjnJvRBu4Xrzo//M5teCf047E36iqcj8fH8nII40lxe3oUvUESfL0MUuPmQsH5J6e6uRORm/wWIDjM5J+o5d7+Oy5dhMzRlwuonAI07SVMewV1FHIneR44QAQcQGChBMOX4efPdGBQvVdd7YxRzrU0DlkdDMYgFScNsN5Iko1d7hdVe54z9IJDMd1aQpINzQYpLxQccYin+P9SP6OOkuJOwi4afKmSIIsrOPUILrKIefqrhHRPtp5dRASSGPgBTkX2r5Zpj+m89BK8A1SzQIo1nBU3FY3i7h+hkaOLMmBG0MOav97gUuqeJGUJP3Dif6U703bOWHCLMcxaAR6y8UxY11aw4gbP+zXDW5n4ODz7n536MXHsL6E2UwHWvtSA39QGdUYz8JtNUaPDlI6XmkQmmf/VlBqkmVnEk+VciNLNhrVbPQUZD5XY6pQgT0KlVJ8t8AWTutUijv9oyqkzhysSMvJ4irwIdVB6ynWQGyvQP9tP29Uqllp46KJRs98Mp0v29toxJ/uogIFdDuTYC/gLhB/ON3iLaJLiE/tKqa3Xs+VioE3Bf5B4ekDcXyaw== sandy@niagahoster.co.id  

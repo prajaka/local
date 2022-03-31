@@ -1,0 +1,3 @@
+---
+- name: update Centos
+  yum: name=* state=latest

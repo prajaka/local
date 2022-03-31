@@ -1,0 +1,11 @@
+---
+home_controller: "{{ lookup('env', 'HOME') }}"
+home_host: "{{ ansible_env.HOME  }}"
+ansible_python_interpreter: "/usr/bin/python3"
+# ansible_user: windows10
+ansible_password: "{{ sudo_passwd }}"
+ansible_connection: winrm
+# ansible_winrm_transport: kerberos
+ansible_winrm_server_cert_validation: ignore
+ansible_become: no
+ansible_winrm_message_encryption: auto
